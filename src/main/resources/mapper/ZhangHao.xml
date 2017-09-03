@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- 设置为IZhangHao接口方法提供sql语句配置 -->
+
+
+
+
+
+        <!-- 设置为IZhangHao接口方法提供sql语句配置 -->
 <mapper namespace="xinmai.game.dao.IZhangHaoDao">
 
     <select id="selectZhangHao" resultType="xinmai.game.model.ZhangHao">
         SELECT * FROM zhanghao WHERE sAccount = #{sAccount} AND sPassword = #{sPassword}
     </select>
 
+    <select id="web_login_pd" parameterMap="getNextSeqMap" statementType="CALLABLE" resultMap="resultNextSeqMap">
+        EXEC web_login_pd #{zhanghao},#{mima}
+    </select>
+    <parameterMap type="java.util.Map" id="getNextSeqMap">
+        <parameter property="zhanghao" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="mima" mode="IN" jdbcType="VARCHAR"/>
+    </parameterMap>
+    <resultMap type="java.util.Map" id="resultNextSeqMap">
+        <result column="panduan" property="panduan" javaType="String" jdbcType="VARCHAR"/>
+        <result column="zhanghao" property="zhanghao" javaType="String" jdbcType="VARCHAR"/>
+        <result column="mima" property="mima" javaType="String" jdbcType="VARCHAR"/>
+    </resultMap>
 </mapper>

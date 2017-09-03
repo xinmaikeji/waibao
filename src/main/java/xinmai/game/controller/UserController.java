@@ -24,13 +24,18 @@ public class UserController {
     @Resource
     private IZhangHaoService zhangHaoService;
     @ResponseBody
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)//登录判断
     public JSONPObject selectUser(@RequestParam("sAccount")String sAccount,
                                             @RequestParam("sPassword")String sPassword,
                                             @RequestParam("callbackparam")String callbackparam
                                             ){
         ZhangHao zhangHao = zhangHaoService.selectZhangHao(sAccount, sPassword);
-        Map<String, ZhangHao> result= new HashMap();
+        /*Map<String, Object> map = new HashMap<String, Object>();
+        map.put("zhanghao","555555");
+        map.put("mima", "555555");
+        Map<String, Object> resultmap = zhangHaoService.web_login_pd(map);
+        */
+        Map<String, Object> result= new HashMap();
         result.put("user", zhangHao);
         return new JSONPObject(callbackparam, result);//解决JSON跨域问题，使用JSONP
     }

@@ -9,6 +9,8 @@ import xinmai.game.model.ZhangHao;
 import xinmai.game.service.IZhangHaoService;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 // 加载spring配置文件
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -22,4 +24,18 @@ public class DaoServiceTest {
         System.out.println(zhangHao);
     }
 
+    @Test
+    public void testExec(){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("zhanghao","555555");
+        map.put("mima", "555555");
+        System.out.print(zhangHaoService.web_login_pd(map));
+    }
+
+    @Test
+    public void testMain(){
+        Object name = "1";
+        int num = Integer.parseInt((String)name);
+        System.out.print(num);
+    }
 }
