@@ -25,4 +25,13 @@
         <result column="zhanghao" property="zhanghao" javaType="String" jdbcType="VARCHAR"/>
         <result column="mima" property="mima" javaType="String" jdbcType="VARCHAR"/>
     </resultMap>
+
+    <select id="isExist" resultType="xinmai.game.model.ZhangHao">
+        SELECT * FROM zhanghao WHERE sAccount = #{sAccount}
+    </select>
+
+    <insert id="addAccount" parameterType="xinmai.game.model.ZhangHao">
+        insert into zhanghao (sAccount, sPassword, sBirthDay, sQuiz, sAnswer, sQuiz2, sAnswer2)
+        values (#{sAccount}, #{sPassword}, #{sBirthDay}, #{sQuiz}, #{sAnswer}, #{sQuiz2}, #{sAnswer2})
+    </insert>
 </mapper>

@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -40,4 +41,27 @@ public class UserController {
         return new JSONPObject(callbackparam, result);//解决JSON跨域问题，使用JSONP
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/isExist", method = RequestMethod.GET)//判断是账号否存在
+    public JSONPObject isExist(@RequestParam("sAccount")String sAccount,
+                              @RequestParam("callbackparam")String callbackparam){
+        System.out.print(sAccount);
+        List<ZhangHao> zhangHaos = zhangHaoService.isExist(sAccount);
+        Map<String, Integer> result= new HashMap();
+        if(zhangHaos.size() > 0){
+            result.put("exits", 1);//存在
+        }else{
+            result.put("exits", 0);
+        }
+        return new JSONPObject(callbackparam, result);//解决JSON跨域问题，使用JSONP
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/regesiter", method = RequestMethod.GET)//注册
+    public JSONPObject regesiter(ZhangHao zhangHao, @RequestParam("callbackparam")String callbackparam){
+        zhangHaoService.addAccount(zhangHao);
+        Map<String, String> result= new HashMap();
+        result.put("result", "success");//存在
+        return new JSONPObject(callbackparam, result);//解决JSON跨域问题，使用JSONP
+    }
 }

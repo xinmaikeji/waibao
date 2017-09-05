@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import xinmai.game.model.ZhangHao;
+import xinmai.game.service.IJiaoSeService;
 import xinmai.game.service.IZhangHaoService;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 // 加载spring配置文件
@@ -18,6 +20,15 @@ import java.util.Map;
 public class DaoServiceTest {
     @Resource(name="zhangHaoService")
     IZhangHaoService zhangHaoService;
+
+    @Resource(name="jiaoSeService")
+    IJiaoSeService jiaoSeService;
+
+    @Test
+    public void testSelectJiaoSe(){
+        System.out.print(jiaoSeService.selectJiaoSe("12111"));
+    }
+
     @Test
     public void testSelectUser() throws Exception {
         ZhangHao zhangHao = zhangHaoService.selectZhangHao("12111", "11111");
@@ -37,5 +48,24 @@ public class DaoServiceTest {
         Object name = "1";
         int num = Integer.parseInt((String)name);
         System.out.print(num);
+    }
+
+    @Test
+    public void testExist(){
+        List<ZhangHao> zhangHaos = zhangHaoService.isExist("555555");
+        System.out.print(zhangHaos);
+    }
+
+    @Test
+    public void testAddAccount(){
+        ZhangHao zhangHao = new ZhangHao();
+        zhangHao.setsAccount("xinmai");
+        zhangHao.setsPassword("8888");
+        zhangHao.setsBirthDay("1995-09-09");
+        zhangHao.setsQuiz("最喜欢的动物");
+        zhangHao.setsAnswer("熊猫");
+        zhangHao.setsQuiz2("最喜欢的运动");
+        zhangHao.setsAnswer2("游泳");
+        zhangHaoService.addAccount(zhangHao);
     }
 }

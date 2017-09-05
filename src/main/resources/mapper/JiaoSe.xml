@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+
+
+
+<!-- 设置为IZhangHao接口方法提供sql语句配置 -->
+<mapper namespace="xinmai.game.dao.IJiaoSeDao">
+
+    <select id="selectJiaoSe"  resultMap="resultNextSeqMap">
+        SELECT sServerName, sAccount, sChrName FROM jiaose WHERE sAccount = #{sAccount}
+    </select>
+    <resultMap type="java.util.Map" id="resultNextSeqMap">
+        <result column="sServerName" property="sServerName" javaType="String" jdbcType="VARCHAR"/>
+        <result column="sAccount" property="sAccount" javaType="String" jdbcType="VARCHAR"/>
+        <result column="sChrName" property="sChrName" javaType="String" jdbcType="VARCHAR"/>
+    </resultMap>
+</mapper>
