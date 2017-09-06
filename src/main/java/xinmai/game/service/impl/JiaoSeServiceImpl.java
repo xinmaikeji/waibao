@@ -12,8 +12,12 @@ import java.util.Map;
 public class JiaoSeServiceImpl  implements IJiaoSeService {
     @Resource
     private IJiaoSeDao iJiaoSeDao;
-    public List<Map<String,Object>> selectJiaoSe(String sAccount) {
-        return iJiaoSeDao.selectJiaoSe(sAccount);
+    public  List<Map<String,Object>>selectJiaoSe(String sAccount) {
+        return iJiaoSeDao.selectJiaoSe(sAccount, "手机专区");
+    }
+
+    public void addJiaoSe(String sAccount, String sChrName, int btSex) {
+        iJiaoSeDao.addJiaoSe("手机专区", sAccount, sChrName, btSex);
     }
 }
 

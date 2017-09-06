@@ -28,6 +28,15 @@ public class ZhangHaoServiceImpl implements IZhangHaoService {
         zhangHaoDao.addAccount(zhangHao);
     }
 
+    public List<ZhangHao> findZhanghao(String sAccount, String sBirthDay, String sQuiz,
+                                       String sAnswer, String sQuiz2, String sAnswer2) {
+        return zhangHaoDao.findZhanghao(sAccount, sBirthDay, sQuiz, sAnswer, sQuiz2, sAnswer2);
+    }
+
+    public void updateAccount(ZhangHao zhangHao) {
+        zhangHaoDao.updateAccount(zhangHao);
+    }
+
     public Map<String, Object> web_login_pd(Map<String, Object> map) {
         return zhangHaoDao.web_login_pd(map);
     }

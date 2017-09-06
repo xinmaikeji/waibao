@@ -34,4 +34,15 @@
         insert into zhanghao (sAccount, sPassword, sBirthDay, sQuiz, sAnswer, sQuiz2, sAnswer2)
         values (#{sAccount}, #{sPassword}, #{sBirthDay}, #{sQuiz}, #{sAnswer}, #{sQuiz2}, #{sAnswer2})
     </insert>
+
+    <select id="findZhanghao" resultType="xinmai.game.model.ZhangHao">
+        SELECT * FROM zhanghao WHERE sAccount = #{sAccount} AND sBirthDay = #{sBirthDay}
+         AND sQuiz = #{sQuiz} AND sAnswer = #{sAnswer} AND sQuiz2 = #{sQuiz2}
+          AND sAnswer2 = #{sAnswer2}
+    </select>
+
+    <update id="updateAccount" parameterType="xinmai.game.model.ZhangHao">
+        update zhanghao set sPassword=#{sPassword}
+        where sAccount = #{sAccount}
+    </update>
 </mapper>

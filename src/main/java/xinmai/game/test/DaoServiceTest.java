@@ -25,8 +25,26 @@ public class DaoServiceTest {
     IJiaoSeService jiaoSeService;
 
     @Test
+    public void testupdateZhangHao(){
+        ZhangHao zhangHao = new ZhangHao();
+        zhangHao.setsAccount("xinmai");
+        zhangHao.setsPassword("58898888");
+        zhangHaoService.updateAccount(zhangHao);
+    }
+
+    @Test
+    public void testfindZhangHao(){
+        System.out.print(zhangHaoService.findZhanghao("xinmai", "1995-09-09",
+                "最喜欢的动物","熊猫","最喜欢的运动","游泳"));
+    }
+    @Test
+    public void testaddJiaoSe(){
+        jiaoSeService.addJiaoSe("121111", "剑姬",0);
+    }
+
+    @Test
     public void testSelectJiaoSe(){
-        System.out.print(jiaoSeService.selectJiaoSe("12111"));
+        System.out.print(jiaoSeService.selectJiaoSe("yy"));
     }
 
     @Test
