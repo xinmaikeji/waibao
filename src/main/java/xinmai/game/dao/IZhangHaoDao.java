@@ -25,4 +25,6 @@ public interface IZhangHaoDao {
                                   @Param(value="sAnswer2") String sAnswer2);
 
     void updateAccount(ZhangHao zhangHao);
+
+    int getNum(@Param(value="sAccount") String sAccount);
 }

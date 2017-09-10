@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import xinmai.game.dao.IZhangHaoDao;
 import xinmai.game.model.ZhangHao;
 import xinmai.game.service.IJiaoSeService;
 import xinmai.game.service.IZhangHaoService;
@@ -28,6 +29,9 @@ public class UserController {
 
     @Resource
     private IJiaoSeService jiaoSeService;
+
+    @Resource
+    private IZhangHaoDao zhangHaoDao;
 
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.GET)//登录判断
@@ -66,7 +70,7 @@ public class UserController {
     public JSONPObject regesiter(ZhangHao zhangHao, @RequestParam("callbackparam")String callbackparam){
         zhangHaoService.addAccount(zhangHao);
         Map<String, String> result= new HashMap();
-        result.put("result", "success");//存在
+        result.put("result", "success");//返回成功
         return new JSONPObject(callbackparam, result);//解决JSON跨域问题，使用JSONP
     }
 
@@ -129,5 +133,11 @@ public class UserController {
         Map<String, String> result= new HashMap();
         result.put("result", "success");//成功
         return new JSONPObject(callbackparam, result);//解决JSON跨域问题，使用JSONP
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getNum", method = RequestMethod.GET)//测试
+    public Integer getNum(String sAccount){
+        return zhangHaoDao.getNum(sAccount);
     }
 }

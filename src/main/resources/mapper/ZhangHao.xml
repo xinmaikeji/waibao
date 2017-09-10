@@ -45,4 +45,8 @@
         update zhanghao set sPassword=#{sPassword}
         where sAccount = #{sAccount}
     </update>
+
+    <select id="getNum" resultType="java.lang.Integer">
+        SELECT count(*) FROM zhanghao WHERE sAccount = #{sAccount}
+    </select>
 </mapper>

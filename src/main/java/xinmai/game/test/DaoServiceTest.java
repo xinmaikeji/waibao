@@ -5,9 +5,14 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import xinmai.game.dao.IZhangHaoDao;
 import xinmai.game.model.ZhangHao;
 import xinmai.game.service.IJiaoSeService;
+import xinmai.game.service.IOtherService;
+import xinmai.game.service.IYinHangLogService;
 import xinmai.game.service.IZhangHaoService;
+import xinmai.game.service.impl.YinHangLogServiceImpl;
+import xinmai.game.service.impl.ZhangHaoServiceImpl;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -18,11 +23,79 @@ import java.util.Map;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring-mybatis.xml"})
 public class DaoServiceTest {
-    @Resource(name="zhangHaoService")
+    @Resource(name = "zhangHaoService")
     IZhangHaoService zhangHaoService;
 
-    @Resource(name="jiaoSeService")
+    @Resource(name = "jiaoSeService")
     IJiaoSeService jiaoSeService;
+
+    @Resource
+    private IZhangHaoDao zhangHaoDao;
+
+    @Resource(name = "yinHangLogService")
+    private IYinHangLogService yinHangLogService;
+
+    @Resource(name = "otherService")
+    private IOtherService otherService;
+
+
+    @Test
+    public void testshaizi_cc_get_zuozhuang(){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("daqu","手机专区");
+        map.put("zhanghao", "12111");
+        map.put("jiaose", "蒙多");
+        System.out.print(otherService.shaizi_cc_get_zuozhuang(map));
+    }
+
+    @Test
+    public void testgetShaiziYaZhu(){
+        System.out.print(otherService.getShaiziYaZhu("12111"));
+    }
+
+    @Test
+    public void testsaizi_cc_yazhu(){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("daqu","手机专区");
+        map.put("zhanghao", "12111");
+        map.put("jiaose", "蒙多");
+        map.put("yajin", "100");
+        map.put("daxiao", "1");
+        System.out.print(otherService.saizi_cc_yazhu(map));
+    }
+
+    @Test
+    public void testgetShaiziZuozhangPaidui(){
+        System.out.print(otherService.getShaiziZuozhangPaidui());
+    }
+
+    @Test
+    public void testsaizi_cc_zuozhuang_paidui(){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("daqu","手机专区");
+        map.put("zhanghao", "12111");
+        map.put("jiaose", "剑姬");
+        System.out.print(otherService.saizi_cc_zuozhuang_paidui(map));
+    }
+
+    @Test
+    public void testShaizi_cc_get_jieguo(){
+
+        System.out.print(otherService.shaizi_cc_get_jieguo());
+    }
+
+    @Test
+    public void testExec2(){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("currPage","1");
+        map.put("strCondition", "12111");
+        System.out.print(yinHangLogService.getYinHangLog(map));
+    }
+
+    @Test
+    public void testgetNum(){
+        System.out.print(zhangHaoDao.getNum("2014"));
+    }
 
     @Test
     public void testupdateZhangHao(){

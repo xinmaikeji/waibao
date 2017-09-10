@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IZhangHao接口方法提供sql语句配置 -->
+<mapper namespace="xinmai.game.dao.IOtherDao">
+
+    <select id="shaizi_cc_get_jieguo" statementType="CALLABLE" resultMap="resultNextSeqMap">
+        EXEC shaizi_cc_get_jieguo
+    </select>
+    <resultMap type="java.util.Map" id="resultNextSeqMap">
+        <result column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="s1" property="s1" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="s2" property="s2" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="s3" property="s3" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="zyb" property="zyb" javaType="Integer" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="saizi_cc_zuozhuang_paidui" parameterMap="getNextSeqMap" statementType="CALLABLE" resultMap="resultNextSeqMap2">
+        EXEC saizi_cc_zuozhuang_paidui #{daqu},#{zhanghao},#{jiaose}
+    </select>
+    <parameterMap type="java.util.Map" id="getNextSeqMap">
+        <parameter property="daqu" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="zhanghao" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="jiaose" mode="IN" jdbcType="VARCHAR"/>
+    </parameterMap>
+    <resultMap type="java.util.Map" id="resultNextSeqMap2">
+        <result column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="msg" property="msg" javaType="String" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getShaiziZuozhangPaidui" resultType="xinmai.game.model.ShaiziZuozhangPaidui">
+        SELECT * FROM shaizi_zuozhang_paidui
+    </select>
+
+    <select id="saizi_cc_yazhu" parameterMap="getNextSeqMap2" statementType="CALLABLE" resultMap="resultNextSeqMap3">
+        EXEC saizi_cc_yazhu #{daqu},#{zhanghao},#{jiaose},#{yajin},#{daxiao}
+    </select>
+    <parameterMap type="java.util.Map" id="getNextSeqMap2">
+        <parameter property="daqu" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="zhanghao" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="jiaose" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="yajin" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="daxiao" mode="IN" jdbcType="VARCHAR"/>
+    </parameterMap>
+    <resultMap type="java.util.Map" id="resultNextSeqMap3">
+        <result column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="msg" property="msg" javaType="String" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getShaiziYaZhu" parameterType="java.lang.String" resultType="xinmai.game.model.ShaiziYaZhu">
+        SELECT * FROM shaizi_yazhu WHERE zhanghao=#{zhanghao}
+    </select>
+
+
+    <select id="shaizi_cc_get_zuozhuang" parameterMap="getNextSeqMap3" statementType="CALLABLE" resultMap="resultNextSeqMap4">
+        EXEC shaizi_cc_get_zuozhuang #{daqu},#{zhanghao},#{jiaose}
+    </select>
+    <parameterMap type="java.util.Map" id="getNextSeqMap3">
+        <parameter property="daqu" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="zhanghao" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="jiaose" mode="IN" jdbcType="VARCHAR"/>
+    </parameterMap>
+    <resultMap type="java.util.Map" id="resultNextSeqMap4">
+        <result column="djs" property="djs" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="say_xz" property="say_xz" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="msg_id" property="msg_id" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="msg" property="msg" javaType="String" jdbcType="VARCHAR"/>
+        <result column="qj_zt" property="qj_zt" javaType="String" jdbcType="VARCHAR"/>
+        <result column="qj_zj" property="qj_zj" javaType="String" jdbcType="VARCHAR"/>
+        <result column="yaxiao" property="yaxiao" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="yada" property="yada" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="keyada" property="keyada" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="keyaxiao" property="keyaxiao" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="user_yj" property="user_yj" javaType="String" jdbcType="VARCHAR"/>
+        <result column="id" property="id" javaType="String" jdbcType="VARCHAR"/>
+        <result column="yinhang" property="yinhang" javaType="Integer" jdbcType="INTEGER"/>
+    </resultMap>
+</mapper>
