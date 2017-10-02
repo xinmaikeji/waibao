@@ -2,6 +2,7 @@ package xinmai.game.dao;
 
 import xinmai.game.model.ShaiziYaZhu;
 import xinmai.game.model.ShaiziZuozhangPaidui;
+import xinmai.game.model.YinHang;
 
 import java.util.List;
 import java.util.Map;
@@ -18,4 +19,8 @@ public interface IOtherDao {
     List<ShaiziYaZhu> getShaiziYaZhu(String sAccount);
 
     List<Map<String,Object>> shaizi_cc_get_zuozhuang(Map<String, Object> map);
+
+    YinHang getYinHang(String zhanghao);
+
+    List<Map<String,Object>> shaizi_cc_get_user();
 }

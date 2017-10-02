@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xinmai.game.dao.IZhangHaoDao;
+import xinmai.game.model.DaiLi;
+import xinmai.game.model.YinHang;
 import xinmai.game.model.ZhangHao;
 import xinmai.game.service.IJiaoSeService;
+import xinmai.game.service.IOtherService;
 import xinmai.game.service.IZhangHaoService;
 
 import javax.annotation.Resource;
@@ -33,10 +36,30 @@ public class UserController {
     @Resource
     private IZhangHaoDao zhangHaoDao;
 
+    @Resource(name = "otherService")
+    private IOtherService otherService;
+
+    @ResponseBody
+    @RequestMapping(value = "/getBasicInfo", method = RequestMethod.GET)//获取角色名，元宝，性别
+    public JSONPObject getBasicInfo(@RequestParam("sAccount")String sAccount,
+                                  @RequestParam("callbackparam")String callbackparam){
+        YinHang yinHang = otherService.getYinHang(sAccount);
+        List<Map<String,Object>> jiaoses = jiaoSeService.selectJiaoSe(sAccount);
+        Map<String,Object> basicinfo = null;
+        if(jiaoses != null && jiaoses.size() != 0){
+            basicinfo = jiaoses.get(0);
+            basicinfo.put("yuanbao", yinHang.getYuanbao());
+        }
+        Map<String, Object> result= new HashMap();
+        result.put("user", basicinfo);
+        return new JSONPObject(callbackparam, result);//解决JSON跨域问题，使用JSONP
+    }
+
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.GET)//登录判断
-    public JSONPObject selectUser(@RequestParam("sAccount")String sAccount,
+    public JSONPObject login(@RequestParam("sAccount")String sAccount,
                                             @RequestParam("sPassword")String sPassword,
+                                            @RequestParam(value = "daili_id", defaultValue = "NULL")String daili_id,
                                             @RequestParam("callbackparam")String callbackparam
                                             ){
         ZhangHao zhangHao = zhangHaoService.selectZhangHao(sAccount, sPassword);
@@ -45,6 +68,17 @@ public class UserController {
         map.put("mima", "555555");
         Map<String, Object> resultmap = zhangHaoService.web_login_pd(map);
         */
+        if(zhangHao != null){
+            if(!daili_id.equals("NULL")){
+                DaiLi daiLi = otherService.getDaiLi(sAccount, daili_id);
+                if(daiLi == null){
+                    daiLi = new DaiLi();
+                    daiLi.setZhanghao(sAccount);
+                    daiLi.setDaili_id(daili_id);
+                    otherService.insert(daiLi);
+                }
+            }
+        }
         Map<String, Object> result= new HashMap();
         result.put("user", zhangHao);
         return new JSONPObject(callbackparam, result);//解决JSON跨域问题，使用JSONP

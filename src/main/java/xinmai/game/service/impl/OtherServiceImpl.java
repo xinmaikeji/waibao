@@ -1,9 +1,12 @@
 package xinmai.game.service.impl;
 
 import org.springframework.stereotype.Service;
+import xinmai.game.dao.IDaiLiDao;
 import xinmai.game.dao.IOtherDao;
+import xinmai.game.model.DaiLi;
 import xinmai.game.model.ShaiziYaZhu;
 import xinmai.game.model.ShaiziZuozhangPaidui;
+import xinmai.game.model.YinHang;
 import xinmai.game.service.IOtherService;
 
 import javax.annotation.Resource;
@@ -15,6 +18,9 @@ public class OtherServiceImpl implements IOtherService{
 
     @Resource
     IOtherDao otherDao;
+
+    @Resource
+    IDaiLiDao daiLiDao;
 
     public List<Map<String,Object>> shaizi_cc_get_jieguo() {
         return otherDao.shaizi_cc_get_jieguo();
@@ -39,4 +45,24 @@ public class OtherServiceImpl implements IOtherService{
     public List<Map<String, Object>> shaizi_cc_get_zuozhuang(Map<String, Object> map) {
         return otherDao.shaizi_cc_get_zuozhuang(map);
     }
+
+    public YinHang getYinHang(String zhanghao) {
+        return otherDao.getYinHang(zhanghao);
+    }
+
+    public List<Map<String, Object>> shaizi_cc_get_user() {
+        return otherDao.shaizi_cc_get_user();
+    }
+
+    public DaiLi getDaiLi(String zhanghao, String daili_id) {
+        return daiLiDao.getDaiLi(zhanghao, daili_id);
+    }
+
+    public void insert(DaiLi daiLi) {
+        daiLiDao.insert(daiLi);
+    }
+
+    public List<DaiLi> getDaiLis(){
+        return daiLiDao.getDaiLis();
+    };
 }

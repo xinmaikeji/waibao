@@ -1,7 +1,10 @@
 package xinmai.game.service;
 
+import org.apache.ibatis.annotations.Param;
+import xinmai.game.model.DaiLi;
 import xinmai.game.model.ShaiziYaZhu;
 import xinmai.game.model.ShaiziZuozhangPaidui;
+import xinmai.game.model.YinHang;
 
 import java.util.List;
 import java.util.Map;
@@ -19,4 +22,14 @@ public interface IOtherService {
     public List<ShaiziYaZhu> getShaiziYaZhu(String sAccount);//获取当前账号下注的信息
 
     public List<Map<String,Object>> shaizi_cc_get_zuozhuang(Map<String, Object> map);//倒计时  下注大 可下载大  下注小 可下注小  庄家  等信息  执行 shaizi_cc_get_zuozhuang 存储过程
+
+    public YinHang getYinHang(String zhanghao);//获取银行信息
+
+    public List<Map<String,Object>> shaizi_cc_get_user();//执行存储过程shaizi_cc_get_user
+
+    public DaiLi getDaiLi(@Param(value="zhanghao")String zhanghao, @Param(value="daili_id")String daili_id);
+
+    public void insert(DaiLi daiLi);
+
+    public List<DaiLi> getDaiLis();
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="xinmai.game.dao.ISysMsgLogDao">
+    <select id="getSysMsgLog" parameterType="java.lang.String" resultType="xinmai.game.model.SysMsgLog">
+        SELECT * FROM sys_msg_log WHERE server_msg=#{server_msg};
+    </select>
+
+    <insert id="insertSysMsgLog" parameterType="xinmai.game.model.SysMsgLog">
+        insert into sys_msg_log (id, server_msg)
+        values (#{id}, #{server_msg})
+    </insert>
+</mapper>

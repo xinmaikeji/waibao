@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="xinmai.game.dao.IDaiLiDao">
+    <select id="getDaiLi" resultType="xinmai.game.model.DaiLi">
+        SELECT * FROM daili WHERE zhanghao=#{zhanghao} AND daili_id=#{daili_id};
+    </select>
+
+    <insert id="insert" parameterType="xinmai.game.model.DaiLi">
+        insert into daili (zhanghao, daili_id)
+        values (#{zhanghao}, #{daili_id})
+    </insert>
+
+    <select id="getDaiLis" resultType="xinmai.game.model.DaiLi">
+        SELECT * FROM daili ORDER BY daili_id
+    </select>
+</mapper>

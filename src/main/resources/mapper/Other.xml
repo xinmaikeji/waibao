@@ -75,4 +75,22 @@
         <result column="id" property="id" javaType="String" jdbcType="VARCHAR"/>
         <result column="yinhang" property="yinhang" javaType="Integer" jdbcType="INTEGER"/>
     </resultMap>
+
+    <select id="getYinHang" parameterType="java.lang.String" resultType="xinmai.game.model.YinHang">
+        SELECT * FROM yinhang WHERE zhanghao=#{zhanghao}
+    </select>
+
+
+    <select id="shaizi_cc_get_user" statementType="CALLABLE" resultMap="resultNextSeqMap5">
+        EXEC shaizi_cc_get_user
+    </select>
+    <resultMap type="java.util.Map" id="resultNextSeqMap5">
+        <result column="daqu" property="daqu" javaType="String" jdbcType="INTEGER"/>
+        <result column="zhanghao" property="zhanghao" javaType="String" jdbcType="INTEGER"/>
+        <result column="jiaose" property="jiaose" javaType="String" jdbcType="INTEGER"/>
+        <result column="daxiao" property="daxiao" javaType="String" jdbcType="INTEGER"/>
+        <result column="yazhu" property="yazhu" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="zbx" property="zbx" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="zby" property="zby" javaType="Integer" jdbcType="INTEGER"/>
+    </resultMap>
 </mapper>

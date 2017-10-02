@@ -4,11 +4,12 @@
 <mapper namespace="xinmai.game.dao.IYinHangLogDao">
 
     <select id="getYinHangLog" parameterMap="getNextSeqMap" statementType="CALLABLE" resultMap="resultNextSeqMap">
-        EXEC prcPageResult #{currPage},#{strCondition}
+        EXEC prcPageResult #{currPage},@strCondition=#{strCondition},@pageSize=#{pageSize}
     </select>
     <parameterMap type="java.util.Map" id="getNextSeqMap">
-        <parameter property="currPage" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="currPage" mode="IN" jdbcType="INTEGER"/>
         <parameter property="strCondition" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="pageSize" mode="IN" jdbcType="INTEGER"/>
     </parameterMap>
     <resultMap type="java.util.Map" id="resultNextSeqMap">
         <result column="daqu" property="daqu" javaType="String" jdbcType="VARCHAR"/>

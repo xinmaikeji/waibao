@@ -5,7 +5,12 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import xinmai.game.dao.ISysMsgDao;
+import xinmai.game.dao.ISysMsgLogDao;
 import xinmai.game.dao.IZhangHaoDao;
+import xinmai.game.model.DaiLi;
+import xinmai.game.model.SysMsg;
+import xinmai.game.model.SysMsgLog;
 import xinmai.game.model.ZhangHao;
 import xinmai.game.service.IJiaoSeService;
 import xinmai.game.service.IOtherService;
@@ -15,6 +20,12 @@ import xinmai.game.service.impl.YinHangLogServiceImpl;
 import xinmai.game.service.impl.ZhangHaoServiceImpl;
 
 import javax.annotation.Resource;
+import javax.ejb.SessionSynchronization;
+import javax.persistence.criteria.CriteriaBuilder;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +49,67 @@ public class DaoServiceTest {
     @Resource(name = "otherService")
     private IOtherService otherService;
 
+    @Resource
+    ISysMsgDao iSysMsgDao;
+    @Resource
+    ISysMsgLogDao iSysMsgLogDao;
+
+    @Test
+    public void testGetDaiLis(){
+        System.out.println(otherService.getDaiLis());
+    }
+
+    @Test
+    public void testGetDaiLi(){
+        System.out.println(otherService.getDaiLi("test", "tset"));
+    }
+
+    @Test
+    public void testDailiInsert(){
+        java.util.Random r=new java.util.Random();
+        for(int i = 0; i < 20; i++){
+            DaiLi daiLi = new DaiLi();
+            daiLi.setZhanghao("剑姬" + i);
+            daiLi.setDaili_id("测试代理" + r.nextInt(3));
+            otherService.insert(daiLi);
+        }
+    }
+
+    @Test
+    public void testshaizi_cc_get_user(){
+        System.out.println(otherService.shaizi_cc_get_user());
+    }
+
+    @Test
+    public void testSysMsgLog2(){
+        SysMsgLog sysMsgLog = new SysMsgLog();
+        sysMsgLog.setId(88);
+        sysMsgLog.setServer_msg("手机专区");
+        iSysMsgLogDao.insertSysMsgLog(sysMsgLog);
+    }
+
+    @Test
+    public void test1(){
+        List<Integer> ids = new ArrayList<Integer>();
+        ids.add(3);
+        ids.add(5);
+        System.out.println(ids.contains(1));
+    }
+
+    @Test
+    public void testSysMsgLog(){
+        System.out.println(iSysMsgLogDao.getSysMsgLog("恭贺新禧"));
+    }
+
+    @Test
+    public void testSysMsg(){
+        System.out.println(iSysMsgDao.getSysMsg());
+    }
+
+    @Test
+    public void testgetYinHang(){
+        System.out.print(otherService.getYinHang("12111"));
+    }
 
     @Test
     public void testshaizi_cc_get_zuozhuang(){
@@ -87,9 +159,31 @@ public class DaoServiceTest {
     @Test
     public void testExec2(){
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("currPage","1");
+        map.put("currPage",1);
         map.put("strCondition", "12111");
-        System.out.print(yinHangLogService.getYinHangLog(map));
+        map.put("pageSize", 13);
+        //DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        List<Map<String, Object>> results = yinHangLogService.getYinHangLog(map);
+        System.out.println(results.size());
+        /*
+        for(Map result:results){
+            //System.out.print(sdf.format((Timestamp)result.get("riqi")));
+            result.put("riqi", sdf.format((Timestamp)result.get("riqi")));
+        }
+        */
+        System.out.print(results);
+    }
+
+    @Test
+    public void maintest(){
+        Timestamp ts = new Timestamp(System.currentTimeMillis());
+        String tsStr = "2011-05-09 11:49:45";
+        try {
+            ts = Timestamp.valueOf(tsStr);
+            System.out.println(ts);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -117,7 +211,7 @@ public class DaoServiceTest {
 
     @Test
     public void testSelectJiaoSe(){
-        System.out.print(jiaoSeService.selectJiaoSe("yy"));
+        System.out.print(jiaoSeService.selectJiaoSe("12111"));
     }
 
     @Test

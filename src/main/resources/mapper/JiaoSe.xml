@@ -10,12 +10,13 @@
 <mapper namespace="xinmai.game.dao.IJiaoSeDao">
 
     <select id="selectJiaoSe"  resultMap="resultNextSeqMap">
-        SELECT sServerName, sAccount, sChrName FROM jiaose WHERE sAccount = #{sAccount} AND sServerName = #{sServerName}
+        SELECT sServerName, sAccount, sChrName, btSex FROM jiaose WHERE sAccount = #{sAccount} AND sServerName = #{sServerName}
     </select>
     <resultMap type="java.util.Map" id="resultNextSeqMap">
         <result column="sServerName" property="sServerName" javaType="String" jdbcType="VARCHAR"/>
         <result column="sAccount" property="sAccount" javaType="String" jdbcType="VARCHAR"/>
         <result column="sChrName" property="sChrName" javaType="String" jdbcType="VARCHAR"/>
+        <result column="btSex" property="btSex" javaType="Integer" jdbcType="INTEGER"/>
     </resultMap>
 
     <insert id="addJiaoSe" >
